@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.workflow.dao.OrderDao">
+    <insert id="insertOrder" parameterType="com.workflow.entity.Order" useGeneratedKeys="true" keyProperty="id">
+        insert ignore into work_order
+        (id,order_type,content,process_instance_id,user_id,start_time)
+        values (#{id},#{orderType},#{content},#{processInstanceId},#{userId},#{startTime})
+    </insert>
+
+    <update id="updateOrder" parameterType="com.workflow.entity.Order">
+        update work_order
+        <set>
+            <trim suffixOverrides=",">
+                <if test="orderType != '' and orderType != null">
+                    order_type = #{orderType},
+                </if>
+                <if test="content != '' and content != null ">
+                    content = #{content},
+                </if>
+                <if test="endTime != '' and endTime != null ">
+                    end_time = #{endTime},
+                </if>
+                <if test="status != '' and status != null ">
+                    status = #{status},
+                </if>
+            </trim>
+        </set>
+        where id = #{id}
+
+
+
+    </update>
+    <update id="updateOrderProcessInstanceId" parameterType="com.workflow.entity.Order">
+        update work_order
+        <set>
+            process_instance_id = #{processInstanceId}
+        </set>
+        where id = #{id}
+
+
+    </update>
+
+    <select id="selectOrderById" parameterType="com.workflow.entity.Order" resultType="com.workflow.entity.Order">
+        select id,order_type as orderType, content, process_instance_id as processInstanceId, user_id as userId
+        from work_order where 1 =1
+        <if test="processInstanceId != '' and processInstanceId != null ">
+            and process_instance_id = #{processInstanceId}
+        </if>
+        <if test="id != '' and id != null ">
+            and id = #{id}
+        </if>
+    </select>
+
+
+</mapper>
