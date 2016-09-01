@@ -3,8 +3,11 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.wocloud</groupId>
     <artifactId>activiti</artifactId>
-    <packaging>war</packaging>
+    <packaging>pom</packaging>
     <version>1.0</version>
+    <modules>
+        <module>../../IDEAWorkspace/chentt</module>
+    </modules>
 
     <properties>
         <spring.version>4.1.5.RELEASE</spring.version>
