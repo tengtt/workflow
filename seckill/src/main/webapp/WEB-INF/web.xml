@@ -1,0 +1,109 @@
+<?xml version="1.0"?>
+    <!DOCTYPE web-app PUBLIC "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN"
+    "http://java.sun.com/dtd/web-app_2_3.dtd">
+
+    <web-app>
+
+    <display-name>Archetype Created Web Application</display-name>
+
+    <!--监听器顺序执行，监听器> 过滤器>Servlet
+        按照对象划分：用于监听应用程序环境对象的事件监听器（ServletContext）
+                    用于监听用户会话对象的事件监听器（HttpSession）
+                    用于监听请求消息对象的事件监听器(ServletRequest)
+        按照监听事件划分：监听域对象自身的创建和销毁的事件监听器
+                            ServletContext(一个),ServletContextListener(多个)，用途：定时器，全局属性对象
+                            HttpSession(多个)，HttpSessionListener，用途：统计在线人数，记录访问日志
+                            ServletRequest,ServletRequestListener,用途：读取参数，记录访问历史
+                        监听域对象中属性的增加和删除的事件监听器
+                            ServletContext,ServletContextAttributeListener
+                            HttpSession，HttpSessionAttributeListener
+                            ServletRequest,ServletRequestAttributeListener
+                        监听绑定到HttpSession域中的某个对象的状态的事件监听器
+                            绑定   解除绑定
+                            钝化   活化
+                            session钝化机制：
+                            session    正常           服务器内存
+                                    不经常使用         序列化
+
+                        Session钝化机制由SessionManager管理
+                        StandarManger
+                        1、当Tomcat服务器被关闭和重启后，tomcat服务器会将当前内存中的session对象钝化到服务器文件系统中。
+                        2、web应用程序被重新加载时，内存中的session对象也会被钝化到服务器的文件系统中。
+                        3、钝化后的文件会被保存到tomcat安装路径/work/catalina/hostname/applicationname/SESSION.ser
+                        Persistentmanager:
+
+                        这两个监听器不需要注册：
+                        HttpSessionBindingListener:  绑定，解除绑定
+                        HttpSessionActivationListener：钝化，活化
+
+
+
+
+    -->
+    <listener>
+        <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+    </listener>
+    <!--<listener>
+        <listener-class>org.seckill.listener.MyServletContextListener</listener-class>
+    </listener>-->
+    <listener>
+        <listener-class>org.seckill.listener.MyHttpSessionListener</listener-class>
+    </listener>
+    <listener>
+        <listener-class>org.seckill.listener.MyServletRequestListener</listener-class>
+    </listener>
+   <!-- <listener>
+        <listener-class>org.seckill.listener.MyHttpSessionAttributeListener</listener-class>
+    </listener>
+
+    <listener>
+        <listener-class>org.seckill.listener.MyServletContextAttributeListener</listener-class>
+    </listener>
+    <listener>
+        <listener-class>org.seckill.listener.MyServletRequestAttributeListener</listener-class>
+    </listener>-->
+
+
+
+
+
+    <context-param>
+        <param-name>contextConfigLocation</param-name>
+        <param-value>
+            /WEB-INF/dispatcher-servlet.xml
+        </param-value>
+    </context-param>
+
+    <welcome-file-list>
+        <welcome-file>index.jsp</welcome-file>
+    </welcome-file-list>
+    <servlet>
+        <servlet-name>dispatcher</servlet-name>
+        <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>dispatcher</servlet-name>
+        <url-pattern>/my/*</url-pattern>
+    </servlet-mapping>
+    <filter>
+        <filter-name>encoding</filter-name>
+        <filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
+        <init-param>
+            <param-name>encoding</param-name>
+            <param-value>utf8</param-value>
+        </init-param>
+    </filter>
+    <filter-mapping>
+        <filter-name>encoding</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+    <context-param>
+        <param-name>namespace</param-name>
+        <param-value>chentt</param-value>
+    </context-param>
+   <!-- <session-config>
+        <session-timeout>1</session-timeout>
+    </session-config>-->
+
+
+</web-app>
