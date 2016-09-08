@@ -1,5 +1,2 @@
-从远程仓库下载的test分支
-git diff -check
-git rename 
-衍    合          
-diff
+﻿从远程仓库下载的test分支
+利用p4merge合并
