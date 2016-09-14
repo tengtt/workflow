@@ -8,9 +8,6 @@
     <build>
         <finalName>workflow</finalName>
     </build>
-    <modules>
-        <module>../../IDEAWorkspace/chentt/test</module>
-    </modules>
     <properties>
         <spring.version>4.1.5.RELEASE</spring.version>
         <slf4j.version>1.7.10</slf4j.version>
